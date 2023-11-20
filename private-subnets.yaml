@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 'Private Subnets in ap-southeast-1 default'
+Resources:
+  privateSubnet1:  #privatesubnet1
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1a
+      CidrBlock: '172.31.48.0/20'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'default-private-subnet1'
+      VpcId: 'vpc-089c2acaae376975c'
+  routeTableforPrivateSubnet1:  #routetable
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+        - Key: 'Name'
+          Value: 'default-private-subnet1'
+      VpcId: 'vpc-089c2acaae376975c'
+  privateSubnet1RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: 
+        !Ref routeTableforPrivateSubnet1
+      SubnetId:
+        !Ref privateSubnet1
+
+
+  privateSubnet2:  #privatesubnet2
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1b
+      CidrBlock: '172.31.64.0/20'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'default-private-subnet2'
+      VpcId: 'vpc-089c2acaae376975c'
+  routeTableforPrivateSubnet2:   #routetable
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+        - Key: 'Name'
+          Value: 'default-private-subnet2'
+      VpcId: 'vpc-089c2acaae376975c'
+  privateSubnet2RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: 
+        !Ref routeTableforPrivateSubnet2
+      SubnetId:
+        !Ref privateSubnet2
+
+  privateSubnet3:  #privatesubnet3
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1c
+      CidrBlock: '172.31.80.0/20'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'default-private-subnet3'
+      VpcId: 'vpc-089c2acaae376975c'
+  routeTableforPrivateSubnet3:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+        - Key: 'Name'
+          Value: 'default-private-subnet3'
+      VpcId: 'vpc-089c2acaae376975c'
+  privateSubnet3RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: 
+        !Ref routeTableforPrivateSubnet3
+      SubnetId:
+        !Ref privateSubnet3

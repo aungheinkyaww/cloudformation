@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  publicInstance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType : 't2.micro'
+      AvailabilityZone : 'ap-southeast-1a'
+      ImageId : 'ami-078c1149d8ad719a7'  #ubuntu 20.04 LTS
+      KeyName: 'ahk-80xg'
