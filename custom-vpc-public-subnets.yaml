@@ -11,6 +11,7 @@ Resources:
       Tags: 
         - Key: 'Name'
           Value: 'custom VPC'
+
   custominternetgateway:
     Type: AWS::EC2::InternetGateway
     Properties:
@@ -52,6 +53,13 @@ Resources:
         !Ref routeTableforPrivateSubnet1
       SubnetId:
         !Ref privateSubnet1
+  defaultRouteForIGW:
+    Type: AWS::EC2::Route
+    DependsOn: customvpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref routeTableforPrivateSubnet1
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref custominternetgateway
 
 
   privateSubnet2:  #privatesubnet2
@@ -80,6 +88,14 @@ Resources:
         !Ref routeTableforPrivateSubnet2
       SubnetId:
         !Ref privateSubnet2
+  defaultRouteForIGW:
+    Type: AWS::EC2::Route
+    DependsOn: customvpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref routeTableforPrivateSubnet2
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref custominternetgateway
+
 
   privateSubnet3:  #privatesubnet3
     Type: AWS::EC2::Subnet
@@ -107,3 +123,11 @@ Resources:
         !Ref routeTableforPrivateSubnet3
       SubnetId:
         !Ref privateSubnet3
+  defaultRouteForIGW:
+    Type: AWS::EC2::Route
+    DependsOn: customvpcGatewayAttachment
+    Properties:
+      RouteTableId: !Ref routeTableforPrivateSubnet3
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref custominternetgateway
+

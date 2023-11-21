@@ -10,7 +10,7 @@ Resources:
       InstanceTenancy: default
       Tags: 
         - Key: 'Name'
-          Value: 'custom VPC'
+          Value: 'my customSGVPC'
 
   privateSubnet1:  #privatesubnet1
     Type: AWS::EC2::Subnet
