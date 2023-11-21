@@ -32,7 +32,7 @@ Resources:
     Properties:
       AvailabilityZone: ap-southeast-1a
       CidrBlock: '172.31.48.0/20'
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       Tags: 
         - Key: 'Name'
           Value: 'default-private-subnet1'
@@ -53,7 +53,7 @@ Resources:
         !Ref routeTableforPrivateSubnet1
       SubnetId:
         !Ref privateSubnet1
-  defaultRouteForIGW:
+  defaultRouteForIGW: 
     Type: AWS::EC2::Route
     DependsOn: customvpcGatewayAttachment
     Properties:
@@ -67,7 +67,7 @@ Resources:
     Properties:
       AvailabilityZone: ap-southeast-1b
       CidrBlock: '172.31.64.0/20'
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       Tags: 
         - Key: 'Name'
           Value: 'default-private-subnet2'
@@ -102,7 +102,7 @@ Resources:
     Properties:
       AvailabilityZone: ap-southeast-1c
       CidrBlock: '172.31.80.0/20'
-      MapPublicIpOnLaunch: false
+      MapPublicIpOnLaunch: true
       Tags: 
         - Key: 'Name'
           Value: 'default-private-subnet3'
@@ -127,7 +127,9 @@ Resources:
     Type: AWS::EC2::Route
     DependsOn: customvpcGatewayAttachment
     Properties:
-      RouteTableId: !Ref routeTableforPrivateSubnet3
+      RouteTableId: 
+        !Ref routeTableforPrivateSubnet3
       DestinationCidrBlock: '0.0.0.0/0'
-      GatewayId: !Ref custominternetgateway
+      GatewayId: 
+        !Ref custominternetgateway
 

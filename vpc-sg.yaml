@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 'Private Subnets in ap-southeast-1 default'
+Resources:
+  nonprodsgvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: '192.168.0.0/16'
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags: 
+        - Key: 'Name'
+          Value: 'nonprod-sg-vpc'
+
+  publicSubnet1:  #publicSubnet1
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1a
+      CidrBlock: '192.168.1.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet1'
+      VpcId: 
+         !Ref nonprodsgvpc
+
+  publicSubnet2:  #publicSubnet2
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1b
+      CidrBlock: '192.168.2.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet2'
+      VpcId: 
+        !Ref nonprodsgvpc
+
+  publicSubnet3:  #publicSubnet3
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1c
+      CidrBlock: '192.168.3.0/24'
+      MapPublicIpOnLaunch: true
+      Tags: 
+        - Key: 'Name'
+          Value: 'public-subnet3'
+      VpcId: 
+        !Ref nonprodsgvpc
+
+  custominternetgateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags: 
+        - Key: 'Name'
+          Value: 'nonprod igw'
+
+  customvpcGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId:
+        !Ref custominternetgateway
+      VpcId: 
+        !Ref nonprodsgvpc
+
+  defaultRouteForIGW:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: 
+        !Ref custominternetgateway
+      RouteTableId: 'rtb-0df7e62f149d26476'
+
+  privateSubnet1:  #privatesubnet1
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1a
+      CidrBlock: '192.168.4.0/24'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'private-subnet1'
+      VpcId: 
+         !Ref nonprodsgvpc
+
+  privateSubnet2:  #privatesubnet2
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1a
+      CidrBlock: '192.168.5.0/24'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'private-subnet2'
+      VpcId: 
+         !Ref nonprodsgvpc
+
+  privateSubnet3:  #privatesubnet2
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: ap-southeast-1c
+      CidrBlock: '192.168.6.0/24'
+      MapPublicIpOnLaunch: false
+      Tags: 
+        - Key: 'Name'
+          Value: 'private-subnet3'
+      VpcId: 
+         !Ref nonprodsgvpc

@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: 'Private Subnets in ap-southeast-1 default'
 Resources:
+  custominternetgatewaysg:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags: 
+        - Key: 'Name'
+          Value: 'customigw-sg'
   customSGVPC:
     Type: AWS::EC2::VPC
     Properties:
@@ -10,7 +16,7 @@ Resources:
       InstanceTenancy: default
       Tags: 
         - Key: 'Name'
-          Value: 'my customSGVPC'
+          Value: 'custom VPC'
 
   privateSubnet1:  #privatesubnet1
     Type: AWS::EC2::Subnet
